@@ -1,3 +1,5 @@
+### <center>Table of Content</center>
+
 - [Kubernetes Components](#kubernetes-components)
   - [1. Control Plane Components](#1-control-plane-components)
   - [2. Node Components](#2-node-components)
