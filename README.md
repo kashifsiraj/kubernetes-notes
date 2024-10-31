@@ -1,3 +1,96 @@
+- [Kubernetes Components](#kubernetes-components)
+  - [1. Control Plane Components](#1-control-plane-components)
+    - [API Server (kube-apiserver)](#api-server-kube-apiserver)
+    - [etcd](#etcd)
+    - [Scheduler (kube-scheduler)](#scheduler-kube-scheduler)
+    - [Controller Manager (kube-controller-manager)](#controller-manager-kube-controller-manager)
+    - [Cloud Controller Manager (optional)](#cloud-controller-manager-optional)
+  - [2. Node Components](#2-node-components)
+    - [Kubelet](#kubelet)
+    - [Kube Proxy](#kube-proxy)
+    - [Container Runtime](#container-runtime)
+  - [3. Add-Ons](#3-add-ons)
+    - [DNS (CoreDNS)](#dns-coredns)
+    - [Dashboard](#dashboard)
+    - [Metrics Server](#metrics-server)
+    - [Ingress Controller](#ingress-controller)
+- [Kubernetes manifest Files](#kubernetes-manifest-files)
+  - [1. Pod Manifest](#1-pod-manifest)
+  - [2. ReplicaSet Manifest](#2-replicaset-manifest)
+  - [3. Deployment Manifest](#3-deployment-manifest)
+  - [4. StatefulSet Manifest](#4-statefulset-manifest)
+  - [5. DaemonSet Manifest](#5-daemonset-manifest)
+  - [6. Job Manifest](#6-job-manifest)
+  - [7. CronJob Manifest](#7-cronjob-manifest)
+  - [8. Service Manifest](#8-service-manifest)
+  - [9. Ingress Manifest](#9-ingress-manifest)
+  - [10. ConfigMap Manifest](#10-configmap-manifest)
+  - [11. Secret Manifest](#11-secret-manifest)
+  - [12. PersistentVolume (PV) Manifest](#12-persistentvolume-pv-manifest)
+  - [13. PersistentVolumeClaim (PVC) Manifest](#13-persistentvolumeclaim-pvc-manifest)
+  - [14. NetworkPolicy Manifest](#14-networkpolicy-manifest)
+- [Advanced Concepts](#advanced-concepts)
+  - [1. Kubernetes Architecture and Internal Concepts](#1-kubernetes-architecture-and-internal-concepts)
+    - [Namespaces](#namespaces)
+    - [Labels and Selectors](#labels-and-selectors)
+    - [Annotations](#annotations)
+    - [Cluster Networking](#cluster-networking)
+  - [2. Security and Access Control](#2-security-and-access-control)
+    - [Role-Based Access Control (RBAC)](#role-based-access-control-rbac)
+    - [Service Accounts](#service-accounts)
+    - [Pod Security Standards (PSS)](#pod-security-standards-pss)
+    - [Network Policies](#network-policies)
+  - [3. Workload Scaling and Management](#3-workload-scaling-and-management)
+    - [Horizontal Pod Autoscaler (HPA)](#horizontal-pod-autoscaler-hpa)
+    - [Vertical Pod Autoscaler (VPA)](#vertical-pod-autoscaler-vpa)
+    - [Cluster Autoscaler](#cluster-autoscaler)
+  - [4. Storage and Data Management](#4-storage-and-data-management)
+    - [Storage Classes](#storage-classes)
+    - [Volume Plugins](#volume-plugins)
+    - [CSI (Container Storage Interface)](#csi-container-storage-interface)
+  - [5. Configurations and Secrets Management](#5-configurations-and-secrets-management)
+    - [Environment Variables and Configurations](#environment-variables-and-configurations)
+    - [Secrets Encryption](#secrets-encryption)
+  - [6. Advanced Scheduling](#6-advanced-scheduling)
+    - [Node Affinity/Anti-Affinity](#node-affinityanti-affinity)
+    - [Pod Affinity/Anti-Affinity](#pod-affinityanti-affinity)
+    - [Taints and Tolerations](#taints-and-tolerations)
+  - [7. Monitoring, Logging, and Observability](#7-monitoring-logging-and-observability)
+    - [Metrics Server](#metrics-server-1)
+    - [Prometheus and Grafana](#prometheus-and-grafana)
+    - [ELK/EFK Stack (ElasticSearch, Logstash/Fluentd, Kibana)](#elkefk-stack-elasticsearch-logstashfluentd-kibana)
+    - [Jaeger or OpenTelemetry](#jaeger-or-opentelemetry)
+  - [8. Multi-Cluster Management](#8-multi-cluster-management)
+    - [Cluster Federation](#cluster-federation)
+    - [Cluster API](#cluster-api)
+    - [Service Mesh (e.g., Istio, Linkerd)](#service-mesh-eg-istio-linkerd)
+  - [9. Helm and Application Packaging](#9-helm-and-application-packaging)
+    - [Helm Charts](#helm-charts)
+    - [Kustomize](#kustomize)
+  - [10. Operators and Custom Resources](#10-operators-and-custom-resources)
+    - [Custom Resource Definitions (CRDs)](#custom-resource-definitions-crds)
+    - [Operators](#operators)
+  - [11. CI/CD Integration with Kubernetes](#11-cicd-integration-with-kubernetes)
+    - [GitOps (e.g., ArgoCD, Flux)](#gitops-eg-argocd-flux)
+    - [Jenkins X / Tekton Pipelines](#jenkins-x--tekton-pipelines)
+  - [12. Disaster Recovery and Backup](#12-disaster-recovery-and-backup)
+    - [Etcd Backups](#etcd-backups)
+    - [Cluster Snapshots](#cluster-snapshots)
+  - [13. Best Practices and Optimization](#13-best-practices-and-optimization)
+    - [Resource Requests and Limits](#resource-requests-and-limits)
+    - [Image Management](#image-management)
+    - [Security Best Practices](#security-best-practices)
+- [Core Focus Areas for CKAD](#core-focus-areas-for-ckad)
+  - [1. Multi-Container Pod Design](#1-multi-container-pod-design)
+  - [2. Resource Management for Applications](#2-resource-management-for-applications)
+  - [3. Configuration and Secrets Management](#3-configuration-and-secrets-management)
+  - [4. Application Deployment Strategies](#4-application-deployment-strategies)
+  - [5. Observability and Troubleshooting](#5-observability-and-troubleshooting)
+  - [6. Networking in Applications](#6-networking-in-applications)
+  - [7. State Persistence for Applications](#7-state-persistence-for-applications)
+  - [8. Scheduling and Affinity](#8-scheduling-and-affinity)
+- [Preparation Tips for CKAD](#preparation-tips-for-ckad)
+
 
 # Kubernetes Components
 Below are the key Kubernetes components to help simplify and clarify their roles:
@@ -73,12 +166,13 @@ Additional components that enhance Kubernetes functionality but are not core com
 - Enables URL-based routing, SSL termination, and load balancing for web services.
 - Works with Ingress resources, defining rules for external access.
 <br /> <br />
+
 # Kubernetes manifest Files
 Overview of the key Kubernetes manifest files one might encounter. Each manifest file defines a specific type of resource or configuration and is written in YAML or JSON. I’ll list each with a brief description.
 
 ## 1. Pod Manifest
-Description: The basic unit of deployment in Kubernetes, representing one or more containers running together.
-<br />File Example:
+**Description:** The basic unit of deployment in Kubernetes, representing one or more containers running together.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -117,8 +211,8 @@ spec:
 
 ## 3. Deployment Manifest
 
-Description: Manages ReplicaSets and provides rolling updates and rollback capabilities.
-<br />File Example:
+**Description:** Manages ReplicaSets and provides rolling updates and rollback capabilities.
+<br />**File Example:**
 
 ```
 apiVersion: apps/v1
@@ -141,8 +235,8 @@ spec:
 ```
 
 ## 4. StatefulSet Manifest
-Description: Manages stateful applications, ensuring each pod has a unique, stable identity and storage.
-<br />File Example:
+**Description:** Manages stateful applications, ensuring each pod has a unique, stable identity and storage.
+<br />**File Example:**
 
 ```
 apiVersion: apps/v1
@@ -165,8 +259,8 @@ spec:
             image: nginx
 ```
 ## 5. DaemonSet Manifest
-Description: Ensures a copy of a pod runs on every node, often for node-wide services (e.g., logging or monitoring agents).
-<br />File Example:
+**Description:** Ensures a copy of a pod runs on every node, often for node-wide services (e.g., logging or monitoring agents).
+<br />**File Example:**
 
 ```
 apiVersion: apps/v1
@@ -188,8 +282,8 @@ spec:
 ```
 
 ## 6. Job Manifest
-Description: Creates one-time tasks that run until completion, such as data processing jobs.
-<br />File Example:
+**Description:** Creates one-time tasks that run until completion, such as data processing jobs.
+<br />**File Example:**
 
 ```
 apiVersion: batch/v1
@@ -206,8 +300,8 @@ spec:
         restartPolicy: Never
 ```
 ## 7. CronJob Manifest
-Description: Schedules jobs at specific times, similar to cron tasks in Linux.
-<br />File Example:
+**Description:** Schedules jobs at specific times, similar to cron tasks in Linux.
+<br />**File Example:**
 
 ```
 apiVersion: batch/v1
@@ -228,8 +322,8 @@ spec:
 ```
 
 ## 8. Service Manifest
-Description: Exposes pods within or outside the cluster, providing stable networking endpoints.
-<br />File Example:
+**Description:** Exposes pods within or outside the cluster, providing stable networking endpoints.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -247,8 +341,8 @@ spec:
 ```
 
 ## 9. Ingress Manifest
-Description: Manages external access to services within the cluster, often used for HTTP/S routing.
-<br />File Example:
+**Description:** Manages external access to services within the cluster, often used for HTTP/S routing.
+<br />**File Example:**
 
 ```
 apiVersion: networking.k8s.io/v1
@@ -270,8 +364,8 @@ spec:
 ```
 
 ## 10. ConfigMap Manifest
-Description: Stores configuration data (non-sensitive) in key-value pairs, injects them into pods.
-<br />File Example:
+**Description:** Stores configuration data (non-sensitive) in key-value pairs, injects them into pods.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -284,8 +378,8 @@ data:
 
 ## 11. Secret Manifest
 
-Description: Stores sensitive data (passwords, tokens) in base64-encoded form.
-<br />File Example:
+**Description:** Stores sensitive data (passwords, tokens) in base64-encoded form.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -297,8 +391,8 @@ data:
 ```
 
 ## 12. PersistentVolume (PV) Manifest
-Description: Represents storage available to the cluster, managed by the administrator.
-<br />File Example:
+**Description:** Represents storage available to the cluster, managed by the administrator.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -315,8 +409,8 @@ spec:
 ```
 
 ## 13. PersistentVolumeClaim (PVC) Manifest
-Description: Requests storage from a PV for use in pods, managed by the user.
-<br />File Example:
+**Description:** Requests storage from a PV for use in pods, managed by the user.
+<br />**File Example:**
 
 ```
 apiVersion: v1
@@ -333,8 +427,8 @@ spec:
 
 ## 14. NetworkPolicy Manifest
 
-Description: Defines network rules for controlling traffic to and from pods.
-<br />File Example:
+**Description:** Defines network rules for controlling traffic to and from pods.
+<br />**File Example:**
 ```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -395,15 +489,15 @@ Additional advanced concepts, architectural details, and practices that are impo
 
 ## 3. Workload Scaling and Management
 
-## Horizontal Pod Autoscaler (HPA)
+### Horizontal Pod Autoscaler (HPA)
 - Automatically scales the number of pod replicas in a deployment or replica set based on CPU, memory, or custom metrics.
 - Essential for dynamic scaling based on workload demand.
 
-## Vertical Pod Autoscaler (VPA)
+### Vertical Pod Autoscaler (VPA)
 - Adjusts resource requests and limits for containers within pods based on historical and current usage.
 - Helps optimize resource usage by recommending, automatically adjusting, or setting appropriate resource limits.
 
-## Cluster Autoscaler
+### Cluster Autoscaler
 - Automatically adjusts the size of the cluster by adding or removing nodes based on resource needs.
 - Works with cloud providers to scale nodes up and down when pod resource requirements change.
 
