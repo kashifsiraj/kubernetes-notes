@@ -448,119 +448,121 @@ Additional advanced concepts, architectural details, and practices that are impo
 ## 7. Monitoring, Logging, and Observability
 
 ### Metrics Server
-    - Collects resource usage metrics (CPU, memory) from the nodes, allowing for autoscaling and monitoring.
+- Collects resource usage metrics (CPU, memory) from the nodes, allowing for autoscaling and monitoring.
 
 ### Prometheus and Grafana
-    - Prometheus: A monitoring tool that scrapes and stores metrics, ideal for Kubernetes observability.
-    - Grafana: A visualization tool often paired with Prometheus for creating dashboards of metrics data.
+- Prometheus: A monitoring tool that scrapes and stores metrics, ideal for Kubernetes observability.
+- Grafana: A visualization tool often paired with Prometheus for creating dashboards of metrics data.
 
 ### ELK/EFK Stack (ElasticSearch, Logstash/Fluentd, Kibana)
-    - Used for centralized logging, allowing easy collection, indexing, and visualization of logs across the cluster.
+- Used for centralized logging, allowing easy collection, indexing, and visualization of logs across the cluster.
 
 ### Jaeger or OpenTelemetry
-    - Provides distributed tracing for services, useful in tracking the lifecycle and performance of requests across components.
+- Provides distributed tracing for services, useful in tracking the lifecycle and performance of requests across components.
 
 ## 8. Multi-Cluster Management
 
 ### Cluster Federation
-    - Allows managing multiple Kubernetes clusters as a single entity.
-    - Useful for high availability and disaster recovery by replicating workloads across multiple clusters.
+- Allows managing multiple Kubernetes clusters as a single entity.
+- Useful for high availability and disaster recovery by replicating workloads across multiple clusters.
 
 ### Cluster API
-    - A Kubernetes-native way to automate infrastructure provisioning and management.
-    - Enables declarative management of Kubernetes clusters, supporting multi-cloud and on-prem environments.
+- A Kubernetes-native way to automate infrastructure provisioning and management.
+- Enables declarative management of Kubernetes clusters, supporting multi-cloud and on-prem environments.
 
 ### Service Mesh (e.g., Istio, Linkerd)
-    - Manages service-to-service communication within the cluster.
-    - Offers features like traffic management, observability, and security (e.g., mutual TLS) for microservices.
+- Manages service-to-service communication within the cluster.
+- Offers features like traffic management, observability, and security (e.g., mutual TLS) for microservices.
 
 ## 9. Helm and Application Packaging
 
 ### Helm Charts
-    - A package manager for Kubernetes, Helm allows templating and versioning of Kubernetes manifests.
-    - Helm charts bundle Kubernetes resources, simplifying complex application deployments with reusable templates.
+- A package manager for Kubernetes, Helm allows templating and versioning of Kubernetes manifests.
+- Helm charts bundle Kubernetes resources, simplifying complex application deployments with reusable templates.
 
 ### Kustomize
-    - A configuration management tool that allows patching and customization of base Kubernetes manifests.
-    - Enables environment-specific configuration by layering patches over a base manifest without modifying it directly.
+- A configuration management tool that allows patching and customization of base Kubernetes manifests.
+- Enables environment-specific configuration by layering patches over a base manifest without modifying it directly.
 
 ## 10. Operators and Custom Resources
 
 ### Custom Resource Definitions (CRDs)
-    - Allow extending Kubernetes by defining custom resources that behave like native Kubernetes objects.
-    - Commonly used by applications to add domain-specific objects within the cluster.
+- Allow extending Kubernetes by defining custom resources that behave like native Kubernetes objects.
+- Commonly used by applications to add domain-specific objects within the cluster.
 
 ### Operators
-    - Operators automate the management of complex applications on Kubernetes.
-    - Encapsulate operational knowledge, automating tasks like upgrades, scaling, backups, and monitoring.
+- Operators automate the management of complex applications on Kubernetes.
+- Encapsulate operational knowledge, automating tasks like upgrades, scaling, backups, and monitoring.
 
 ## 11. CI/CD Integration with Kubernetes
 
 ### GitOps (e.g., ArgoCD, Flux)
-    - GitOps uses Git as the source of truth for deploying Kubernetes configurations.
-    - Tools like ArgoCD and Flux automate the synchronization between Git repositories and the cluster.
+- GitOps uses Git as the source of truth for deploying Kubernetes configurations.
+- Tools like ArgoCD and Flux automate the synchronization between Git repositories and the cluster.
 
 ### Jenkins X / Tekton Pipelines
-    - Jenkins X: A CI/CD solution optimized for Kubernetes, automating testing, building, and deploying applications.
-    - Tekton: A Kubernetes-native framework for creating CI/CD pipelines, allowing customized, declarative pipeline creation.
+- Jenkins X: A CI/CD solution optimized for Kubernetes, automating testing, building, and deploying applications.
+- Tekton: A Kubernetes-native framework for creating CI/CD pipelines, allowing customized, declarative pipeline creation.
 
 ## 12. Disaster Recovery and Backup
 
 ### Etcd Backups
-    - Regular etcd backups are critical to protecting the cluster state in the event of data loss or corruption.
-    - Backup and restoration tools, like Velero, provide snapshots and enable data recovery.
+- Regular etcd backups are critical to protecting the cluster state in the event of data loss or corruption.
+- Backup and restoration tools, like Velero, provide snapshots and enable data recovery.
 
 ### Cluster Snapshots
-    - Some solutions support full cluster snapshots, including etcd state, configurations, and persistent storage.
-    - Snapshots can aid in disaster recovery by quickly restoring a working state after failure.
+- Some solutions support full cluster snapshots, including etcd state, configurations, and persistent storage.
+- Snapshots can aid in disaster recovery by quickly restoring a working state after failure.
 
 ## 13. Best Practices and Optimization
 
 ### Resource Requests and Limits
-    - Requests define the minimum resources a container needs; limits cap the maximum resources it can use.
-    - Setting appropriate requests and limits ensures stability and avoids issues like resource starvation.
+- Requests define the minimum resources a container needs; limits cap the maximum resources it can use.
+- Setting appropriate requests and limits ensures stability and avoids issues like resource starvation.
 
 ### Image Management
-    - Use lightweight and secure container images to optimize deployment speed and reduce vulnerabilities.
-    - Regularly update images to avoid deprecated or insecure versions, and use image registries with vulnerability scanning.
+- Use lightweight and secure container images to optimize deployment speed and reduce vulnerabilities.
+- Regularly update images to avoid deprecated or insecure versions, and use image registries with vulnerability scanning.
 
 ### Security Best Practices
-    - Follow Pod Security Standards, restrict container privileges, and use network policies.
-    - Regularly update Kubernetes versions and components, and secure your cluster with tools like kube-bench.
+- Follow Pod Security Standards, restrict container privileges, and use network policies.
+- Regularly update Kubernetes versions and components, and secure your cluster with tools like kube-bench.
 
 # Core Focus Areas for CKAD
 
 ## 1. Multi-Container Pod Design
+- Familiarize yourself with multi-container patterns (like the sidecar, adapter, and ambassador patterns) where containers within a pod work closely together.
+- Understand when and why to use multiple containers within a single pod, and practice using initContainers.
 
-    - Familiarize yourself with multi-container patterns (like the sidecar, adapter, and ambassador patterns) where containers within a pod work closely together.
-    - Understand when and why to use multiple containers within a single pod, and practice using initContainers.
 ## 2. Resource Management for Applications
-    - Practice setting resource requests and limits on containers for optimal cluster resource utilization.
-    - Familiarize yourself with scaling applications using Horizontal Pod Autoscalers (HPA) based on CPU, memory, or custom metrics.
+- Practice setting resource requests and limits on containers for optimal cluster resource utilization.
+- Familiarize yourself with scaling applications using Horizontal Pod Autoscalers (HPA) based on CPU, memory, or custom metrics.
+
 ## 3. Configuration and Secrets Management
-    - Work with ConfigMaps and Secrets for application configuration, including injection as environment variables or mounted volumes.
-    - Understand the differences between managing configurations and sensitive information, and practice secure handling of secrets.
+- Work with ConfigMaps and Secrets for application configuration, including injection as environment variables or mounted volumes.
+- Understand the differences between managing configurations and sensitive information, and practice secure handling of secrets.
+
 ## 4. Application Deployment Strategies
-    - Learn about different deployment strategies:
-        - Rolling Updates: Gradual replacement of old pods with new ones.
-        - Blue-Green and Canary Deployments: Useful for minimizing downtime and risk.
-    - Practice updating and rolling back applications using kubectl rollout commands.
+- Learn about different deployment strategies:
+    - Rolling Updates: Gradual replacement of old pods with new ones.
+    - Blue-Green and Canary Deployments: Useful for minimizing downtime and risk.
+- Practice updating and rolling back applications using kubectl rollout commands.
 
 ## 5. Observability and Troubleshooting
-    - Learn basic troubleshooting techniques for failed or crashing pods using commands like kubectl logs, kubectl describe, and kubectl exec.
-    - Familiarize yourself with debugging tools like kubectl port-forward to connect locally to services running in the cluster.
+- Learn basic troubleshooting techniques for failed or crashing pods using commands like kubectl logs, kubectl describe, and kubectl exec.
+- Familiarize yourself with debugging tools like kubectl port-forward to connect locally to services running in the cluster.
 
 ## 6. Networking in Applications
-    - Understand Services (ClusterIP, NodePort, and LoadBalancer) and their roles in exposing applications within and outside the cluster.
-    - Learn about Ingress Controllers and Ingress resources to manage HTTP/S access, including path-based and host-based routing.
+- Understand Services (ClusterIP, NodePort, and LoadBalancer) and their roles in exposing applications within and outside the cluster.
+- Learn about Ingress Controllers and Ingress resources to manage HTTP/S access, including path-based and host-based routing.
 
 ## 7. State Persistence for Applications
-    - Practice using Persistent Volumes (PV) and Persistent Volume Claims (PVC) for stateful applications.
-    - Get comfortable with different storage classes and dynamic provisioning to ensure applications retain data even if pods are recreated.
+- Practice using Persistent Volumes (PV) and Persistent Volume Claims (PVC) for stateful applications.
+- Get comfortable with different storage classes and dynamic provisioning to ensure applications retain data even if pods are recreated.
 
 ## 8. Scheduling and Affinity
-    - Learn how to control where pods are placed using node selectors, node affinity/anti-affinity, and taints/tolerations.
-    - Practice scheduling techniques to achieve better resource allocation or improve availability for specific applications.
+- Learn how to control where pods are placed using node selectors, node affinity/anti-affinity, and taints/tolerations.
+- Practice scheduling techniques to achieve better resource allocation or improve availability for specific applications.
 
 # Preparation Tips for CKAD
 
