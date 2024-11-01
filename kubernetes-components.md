@@ -124,7 +124,8 @@ Additional components that enhance Kubernetes functionality but are not core com
 Overview of the key Kubernetes manifest files one might encounter. Each manifest file defines a specific type of resource or configuration and is written in YAML or JSON. I’ll list each with a brief description.
 
 ## 1. Pod Manifest
-**Description:** The basic unit of deployment in Kubernetes, representing one or more containers running together.
+**Description:** The smallest deployable unit, encapsulating one or more containers that share storage and network.
+<br />**Use Case:** Often used directly for single-container applications or as part of higher-level abstractions like Deployments.
 <br />**File Example:**
 
 ```
@@ -165,6 +166,7 @@ spec:
 ## 3. Deployment Manifest
 
 **Description:** Manages ReplicaSets and provides rolling updates and rollback capabilities.
+<br />**Use Case:** For deploying scalable and resilient applications.
 <br />**File Example:**
 
 ```
@@ -276,6 +278,7 @@ spec:
 
 ## 8. Service Manifest
 **Description:** Exposes pods within or outside the cluster, providing stable networking endpoints.
+**Types:** ClusterIP (internal), NodePort, LoadBalancer, ExternalName.
 <br />**File Example:**
 
 ```
@@ -317,7 +320,7 @@ spec:
 ```
 
 ## 10. ConfigMap Manifest
-**Description:** Stores configuration data (non-sensitive) in key-value pairs, injects them into pods.
+**Description:** Manages configuration data that can be injected into pods as environment variables or volumes.
 <br />**File Example:**
 
 ```
